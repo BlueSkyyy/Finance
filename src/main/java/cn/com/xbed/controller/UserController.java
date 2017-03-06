@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableAutoConfiguration
 @RestController
 @RequestMapping("test")
-public class HelloController {
+public class UserController {
 
     @RequestMapping(value = "hello", method = RequestMethod.GET)
     @ResponseBody
