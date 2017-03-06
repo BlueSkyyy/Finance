@@ -1,2 +1,8 @@
+cn\com\xbed\common\source\BaseDataSource.class
+cn\com\xbed\common\source\JpaConfig.class
 cn\com\xbed\ServerApi.class
-cn\com\xbed\controller\HelloController.class
+cn\com\xbed\common\listner\ChangeDataSourceListener.class
+cn\com\xbed\common\source\DynamicDataSource.class
+cn\com\xbed\common\source\DataSourceSwitcher.class
+cn\com\xbed\common\key\Only.class
+cn\com\xbed\controller\UserController.class
