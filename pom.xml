@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>cn.com.xbed</groupId>
+    <artifactId>Finance</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.2.7.RELEASE</version>
+    </parent>
+
+    <properties>
+        <mysql.version>5.1.37</mysql.version>
+        <java.version>1.7</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <start-class>cn.com.xbed.ServerApi</start-class>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <name>Team Nexus Repository</name>
+            <url>http://14.23.42.163:8081/nexus/content/groups/public</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-data-jpa</artifactId>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-redis</artifactId>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>c3p0</groupId>-->
+        <!--<artifactId>c3p0</artifactId>-->
+        <!--<version>0.9.1.2</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>mysql</groupId>-->
+        <!--<artifactId>mysql-connector-java</artifactId>-->
+        <!--<version>5.1.9</version>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.6</version>
+        </dependency>
+        <!-- 性能监控 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-actuator</artifactId>
+        </dependency>
+        <!-- 日志服务 -->
+        <dependency>
+            <groupId>cn.com.xbed.commond</groupId>
+            <artifactId>xbedLogTool</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+        <!-- 测试jar -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.3.3</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <!-- 开发环境 -->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>dev</env>
+                <log.dir>logs/dev</log.dir>
+                <log.level>debug</log.level>
+                <show.sql>true</show.sql>
+                <room.api.host>http://120.25.106.243:6868</room.api.host>
+                <room.system.host>http://120.25.106.243:9810</room.system.host>
+                <user.api.host>http://120.25.106.243:6873</user.api.host>
+                <marketing.host>http://120.25.106.243:6871</marketing.host>
+                <clean.host>http://192.168.1.16:8080</clean.host>
+                <order.api.host>http://120.25.106.243:6872</order.api.host>
+                <wechat.host>http://127.0.0.1:7010</wechat.host>
+                <redis.host>120.25.163.161</redis.host>
+                <redis.password></redis.password>
+                <redis.database>3</redis.database>
+                <redis.post>6379</redis.post>
+                <!-- 读写库 -->
+                <datasource.write.url>jdbc:mysql://120.25.106.243:3306/xbed_business</datasource.write.url>
+                <datasource.write.username>db_admin</datasource.write.username>
+                <datasource.write.password>db_admin2015</datasource.write.password>
+                <datasource.write.driver-class-name>com.mysql.jdbc.Driver</datasource.write.driver-class-name>
+                <datasource.write.maxPoolSize>20</datasource.write.maxPoolSize>
+                <datasource.write.minPoolSize>2</datasource.write.minPoolSize>
+                <datasource.write.initialPoolSize>2</datasource.write.initialPoolSize>
+                <datasource.write.maxPoolSize>20</datasource.write.maxPoolSize>
+                <datasource.write.maxIdleTime>3600</datasource.write.maxIdleTime>
+                <datasource.write.idleConnectionTestPeriod>2000</datasource.write.idleConnectionTestPeriod>
+                <!-- 只读库 -->
+                <datasource.read.url>jdbc:mysql://120.25.106.243:3306/xbed_business</datasource.read.url>
+                <datasource.read.username>db_admin</datasource.read.username>
+                <datasource.read.password>db_admin2015</datasource.read.password>
+                <datasource.read.driver-class-name>com.mysql.jdbc.Driver</datasource.read.driver-class-name>
+                <datasource.read.maxPoolSize>20</datasource.read.maxPoolSize>
+                <datasource.read.minPoolSize>2</datasource.read.minPoolSize>
+                <datasource.read.initialPoolSize>2</datasource.read.initialPoolSize>
+                <datasource.read.maxIdleTime>3600</datasource.read.maxIdleTime>
+                <datasource.read.idleConnectionTestPeriod>2000</datasource.read.idleConnectionTestPeriod>
+                <!-- 日志服务地址 -->
+                <jms.brokerurl>tcp://120.25.106.243:61616</jms.brokerurl>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+        <!-- 测试环境 -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <env>test</env>
+                <log.dir>logs/test</log.dir>
+                <log.level>debug</log.level>
+                <show.sql>false</show.sql>
+            </properties>
+        </profile>
+
+        <!-- 预发布环境 -->
+        <profile>
+            <id>staging</id>
+            <properties>
+                <env>staging</env>
+                <log.dir>logs/staging</log.dir>
+                <log.level>info</log.level>
+                <show.sql>false</show.sql>
+            </properties>
+        </profile>
+
+        <!-- 生产环境 -->
+        <profile>
+            <id>product</id>
+            <properties>
+                <env>product</env>
+                <log.dir>logs/product</log.dir>
+                <log.level>info</log.level>
+                <show.sql>false</show.sql>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <defaultGoal>package</defaultGoal>
+        <directory>target</directory>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <outputDirectory>target/classes</outputDirectory>
+        <testOutputDirectory>target/test-classes</testOutputDirectory>
+        <finalName>${artifactId}-${env}</finalName>
+
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <filtering>true</filtering>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <compilerVersion>${java.version}</compilerVersion>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
